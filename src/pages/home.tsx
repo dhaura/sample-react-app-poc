@@ -28,6 +28,7 @@ import { USER_DENIED_LOGOUT } from "../constants/errors";
 
 interface DerivedState {
     authenticateResponse: BasicUserInfo,
+    accessToken: string,
     idToken: string[],
     decodedIdTokenHeader: string,
     decodedIDTokenPayload: Record<string, string | number | boolean>;
@@ -49,7 +50,8 @@ export const HomePage: FunctionComponent = (): ReactElement => {
         getBasicUserInfo,
         getIDToken,
         getDecodedIDToken,
-        on
+        on,
+        getAccessToken
     } = useAuthContext();
 
     const [ derivedAuthenticationState, setDerivedAuthenticationState ] = useState<DerivedState>(null);
@@ -68,11 +70,13 @@ export const HomePage: FunctionComponent = (): ReactElement => {
 
         (async (): Promise<void> => {
             const basicUserInfo = await getBasicUserInfo();
+            const accessToken = await getAccessToken();
             const idToken = await getIDToken();
             const decodedIDToken = await getDecodedIDToken();
 
             const derivedState: DerivedState = {
                 authenticateResponse: basicUserInfo,
+                accessToken: accessToken,
                 idToken: idToken.split("."),
                 decodedIdTokenHeader: JSON.parse(atob(idToken.split(".")[0])),
                 decodedIDTokenPayload: decodedIDToken
