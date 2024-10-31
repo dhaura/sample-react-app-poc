@@ -3,6 +3,7 @@ node_modules/
 jspm_packages/
 
 # Distribution directories
+dist
 build/Release
 **/build
 target/
