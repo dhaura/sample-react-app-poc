@@ -2,7 +2,8 @@
 
 ### Steps
 1. Create SPAs for each region in IS Console and share them with your child organizations.
-2. For each region, complete `app-{region}/src/config.json` in the following format.
+2. For each application, enable `orgnization_switch` grant.
+3. For each region, complete `app-{region}/src/config.json` in the following format.
 ```json
 {
     "clientID": "<CLIENT-ID>",
@@ -10,10 +11,11 @@
     "signInRedirectURL": "http://localhost:3000",
     "signOutRedirectURL": "http://localhost:3000",
     "scope": ["openid", "profile", "roles", "groups", "email"],
-    "orgId": "<CHILD-ORG-ID>"
+    "orgId": "<CHILD-ORG-ID>",
+    "parentOrgId": "<PARENT-ORG-ID>"
 }
 ```
-3. Run each app by executing the following command.
+4. Run each app by executing the following command.
 ```bash
 cd app-{region}
 npm install && npm start

@@ -22,7 +22,7 @@ body {
     text-align: center;
     color: #2A2A2A;
     background-color: #fff;
-    font-family: BlinkMacSystemFont, Segoe WPC, Segoe UI, HelveticaNeue-Light, Ubuntu, Droid Sans, sans-serif, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    font-family: Gilmer, sans-serif;
 }
 
 h1, h2, h3, h4, h5 {
@@ -189,6 +189,11 @@ code {
     line-height: 1.7;
 }
 
+.content .spa-app-description-justified {
+    line-height: 1.7;
+    text-align: justify; 
+}
+
 .btn.primary, .btn.primary:active, .btn.primary:focus {
     background-color: #282c34;
     border-radius: 3px;
@@ -199,6 +204,23 @@ code {
     text-align: center;
     text-decoration: none;
     width: 150px;
+    cursor: pointer;
+    -webkit-text-size-adjust: none;
+    padding: .78571429em 1.5em .78571429em;
+    margin-top: 30px;
+    outline: none;
+}
+
+.btn.secondary, .btn.secondary:active, .btn.secondary:focus {
+    background-color: #282c34;
+    border-radius: 3px;
+    border: none;
+    color: #ffffff;
+    display: inline-block;
+    font-size: 1.14285714rem;
+    text-align: center;
+    text-decoration: none;
+    width: 200px;
     cursor: pointer;
     -webkit-text-size-adjust: none;
     padding: .78571429em 1.5em .78571429em;
@@ -240,4 +262,42 @@ code {
     background-color: #272822 !important;
     color: #d0d0d0 !important;
     padding: 20px;
+}
+
+.collapsible-box {
+    margin: 20px;
+    border: 1px solid #cdcdcd; /* Border color */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #272822; /* Background color */
+    color: white; /* Text color */
+}
+
+.toggle-button {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 10px; /* Padding for the toggle button */
+    background-color: #3e3d32; /* Background color for the toggle button */
+}
+
+.toggle-text {
+    margin-left: 10px; /* Space between arrow and text */
+}
+
+.content {
+    padding: 15px; /* Padding inside the box */
+    background-color: #ffffff; /* Background color for the content */
+}
+
+.side-by-side-container {
+    display: flex;
+    align-items: center; /* Centers items vertically */
+    gap: 40px; /* Space between image and text */
+    padding: 20px;
+}
+
+.side-image {
+    width: 350px; /* Adjust the width as needed */
+    height: auto;
+    border-radius: 10px; /* Optional: round the corners */
 }

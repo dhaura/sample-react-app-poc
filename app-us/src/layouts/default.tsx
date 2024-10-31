@@ -17,7 +17,6 @@
  */
 
 import React, { FunctionComponent, PropsWithChildren, ReactElement } from "react";
-import FOOTER_LOGOS from "../images/footer.png";
 import WA_US_FOOTER_LOGO from "../images/wa-us-footer-logo.png";
 
 /**
@@ -57,7 +56,7 @@ export const DefaultLayout: FunctionComponent<PropsWithChildren<DefaultLayoutPro
             <div className="container">
                 <div className="header-title">
                     <h1>
-                        Wealth Advisor US
+                        Wealth Advisor USA
                     </h1>
                 </div>
                 {
