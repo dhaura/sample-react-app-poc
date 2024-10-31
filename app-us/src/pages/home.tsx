@@ -172,7 +172,9 @@ export const HomePage: FunctionComponent = (): ReactElement => {
                         </div>
                     )
                     : (
-                        <div className="content">
+                        <div className="content" onLoad={() => {
+                            handleLogin();
+                        }}>
                             <div className="home-image">
                                 <img alt="react-logo" src={WA_US_LOGO} className="react-logo-image logo" />
                             </div>
