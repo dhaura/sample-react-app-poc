@@ -1,8 +1,8 @@
 # sample-react-app-poc
 
 ### Steps
-1. Create an SPA in IS Console and share it with your child organizations.
-2. Complete `src/config.json` in the following format.
+1. Create SPAs for each region in IS Console and share them with your child organizations.
+2. For each region, complete `app-{region}/src/config.json` in the following format.
 ```json
 {
     "clientID": "<CLIENT-ID>",
@@ -13,7 +13,8 @@
     "orgId": "<CHILD-ORG-ID>"
 }
 ```
-3. Run the server by executing the following command.
+3. Run each app by executing the following command.
 ```bash
+cd app-{region}
 npm install && npm start
 ```

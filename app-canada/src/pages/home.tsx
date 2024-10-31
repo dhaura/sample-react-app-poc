@@ -19,7 +19,7 @@
 import { BasicUserInfo, Hooks, useAuthContext } from "@asgardeo/auth-react";
 import React, { FunctionComponent, ReactElement, useCallback, useEffect, useState } from "react";
 import { default as authConfig } from "../config.json";
-import REACT_LOGO from "../images/react-logo.png";
+import WA_CAN_LOGO from "../images/wa-can-logo.png";
 import { DefaultLayout } from "../layouts/default";
 import { AuthenticationResponse } from "../components";
 import { useLocation } from "react-router-dom";
@@ -154,6 +154,9 @@ export const HomePage: FunctionComponent = (): ReactElement => {
                 state.isAuthenticated
                     ? (
                         <div className="content">
+                            <div className="home-image">
+                                <img alt="wa-us-logo" src={WA_CAN_LOGO} className="react-logo-image logo" />
+                            </div>
                             <AuthenticationResponse
                                 derivedResponse={derivedAuthenticationState}
                             />
@@ -168,11 +171,9 @@ export const HomePage: FunctionComponent = (): ReactElement => {
                         </div>
                     )
                     : (
-                        <div className="content" onLoad={() => {
-                            handleLogin();
-                        }}>
+                        <div className="content">
                             <div className="home-image">
-                                <img alt="react-logo" src={REACT_LOGO} className="react-logo-image logo" />
+                                <img alt="react-logo" src={WA_CAN_LOGO} className="react-logo-image logo" />
                             </div>
                             <h4 className={"spa-app-description"}>
                                 Please wait while we take you to the login page.

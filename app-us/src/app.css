@@ -64,7 +64,7 @@ a:hover {
 }
 
 .home-image .logo {
-    width: 150px;
+    width: 350px;
     vertical-align: middle;
 }
 
@@ -90,7 +90,7 @@ code {
     background: #272822;
     padding: 4px;
     font-size: 90%;
-    color: #fd971f;
+    color: #ae40fd;
 }
 
 .code {
@@ -103,7 +103,7 @@ code {
 }
 
 .code .id-token-0 {
-    color: #cc6633;
+    color: #8659f8;
 }
 
 .code .id-token-1 {
@@ -111,7 +111,7 @@ code {
 }
 
 .code .id-token-2 {
-    color: #fd971f;
+    color: #9b7fe3;
 }
 
 .row {
@@ -175,7 +175,7 @@ code {
 }
 
 .header-title {
-    background-color: #f47421;
+    background-color: #8354f6;
     color: #ffffff;
     padding: 20px;
     border-radius: 10px 10px 0 0;
@@ -238,5 +238,6 @@ code {
 
 .asg-json-viewer {
     background-color: #272822 !important;
+    color: #d0d0d0 !important;
     padding: 20px;
 }
