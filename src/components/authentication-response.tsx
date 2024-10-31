@@ -74,7 +74,7 @@ export const AuthenticationResponse: FunctionComponent<AuthenticationResponsePro
         try {
             const formBody = new URLSearchParams({
                 token: derivedResponse?.accessToken || '',
-                scope: authConfig?.scope,
+                scope: authConfig?.scope.join(' '),
                 client_id: authConfig?.clientID,
                 switching_organization: authConfig?.orgId,
                 grant_type: 'organization_switch'
@@ -99,7 +99,7 @@ export const AuthenticationResponse: FunctionComponent<AuthenticationResponsePro
             if (data.access_token) {
                 fetchUserInfo(data.access_token);
             } else {
-                console.log('Access Token not found in response.');
+                console.error('Access Token not found in response.');
             }
         } catch (error) {
             console.error('Error while switching:', error);
@@ -133,7 +133,7 @@ export const AuthenticationResponse: FunctionComponent<AuthenticationResponsePro
             });
 
             if (!response.ok) {
-                throw new Error(`Error while retrieving user info: ${response.status}`);
+                console.error(`Error while retrieving user info: ${response.status}`);
             }
 
             const data = await response.json();

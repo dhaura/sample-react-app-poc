@@ -54,9 +54,9 @@ export const HomePage: FunctionComponent = (): ReactElement => {
         getAccessToken
     } = useAuthContext();
 
-    const [ derivedAuthenticationState, setDerivedAuthenticationState ] = useState<DerivedState>(null);
-    const [ hasAuthenticationErrors, setHasAuthenticationErrors ] = useState<boolean>(false);
-    const [ hasLogoutFailureError, setHasLogoutFailureError ] = useState<boolean>();
+    const [derivedAuthenticationState, setDerivedAuthenticationState] = useState<DerivedState>(null);
+    const [hasAuthenticationErrors, setHasAuthenticationErrors] = useState<boolean>(false);
+    const [hasLogoutFailureError, setHasLogoutFailureError] = useState<boolean>();
 
     const search = useLocation().search;
     const stateParam = new URLSearchParams(search).get('state');
@@ -84,11 +84,11 @@ export const HomePage: FunctionComponent = (): ReactElement => {
 
             setDerivedAuthenticationState(derivedState);
         })();
-    }, [ state.isAuthenticated , getBasicUserInfo, getIDToken, getDecodedIDToken ]);
+    }, [state.isAuthenticated, getBasicUserInfo, getIDToken, getDecodedIDToken]);
 
     useEffect(() => {
-        if(stateParam && errorDescParam) {
-            if(errorDescParam === "End User denied the logout request") {
+        if (stateParam && errorDescParam) {
+            if (errorDescParam === "End User denied the logout request") {
                 setHasLogoutFailureError(true);
             }
         }
@@ -98,23 +98,23 @@ export const HomePage: FunctionComponent = (): ReactElement => {
         setHasLogoutFailureError(false);
         signIn()
             .catch(() => setHasAuthenticationErrors(true));
-    }, [ signIn ]);
+    }, [signIn]);
 
-   /**
-     * handles the error occurs when the logout consent page is enabled
-     * and the user clicks 'NO' at the logout consent page
-     */
+    /**
+      * handles the error occurs when the logout consent page is enabled
+      * and the user clicks 'NO' at the logout consent page
+      */
     useEffect(() => {
         on(Hooks.SignOut, () => {
             setHasLogoutFailureError(false);
         });
 
         on(Hooks.SignOutFailed, () => {
-            if(!errorDescParam) {
+            if (!errorDescParam) {
                 handleLogin();
             }
         })
-    }, [ on, handleLogin, errorDescParam]);
+    }, [on, handleLogin, errorDescParam]);
 
     const handleLogout = () => {
         signOut();
@@ -147,44 +147,44 @@ export const HomePage: FunctionComponent = (): ReactElement => {
 
     return (
         <DefaultLayout
-            isLoading={ state.isLoading }
-            hasErrors={ hasAuthenticationErrors }
+            isLoading={state.isLoading}
+            hasErrors={hasAuthenticationErrors}
         >
             {
                 state.isAuthenticated
                     ? (
                         <div className="content">
                             <AuthenticationResponse
-                                derivedResponse={ derivedAuthenticationState }
+                                derivedResponse={derivedAuthenticationState}
                             />
                             <button
                                 className="btn primary mt-4"
-                                onClick={ () => {
+                                onClick={() => {
                                     handleLogout();
-                                } }
+                                }}
                             >
                                 Logout
                             </button>
                         </div>
                     )
                     : (
-                        <div className="content">
+                        <div className="content" onLoad={() => {
+                            handleLogin();
+                        }}>
                             <div className="home-image">
-                                <img alt="react-logo" src={ REACT_LOGO } className="react-logo-image logo"/>
+                                <img alt="react-logo" src={REACT_LOGO} className="react-logo-image logo" />
                             </div>
-                            <h4 className={ "spa-app-description" }>
-                                Sample demo to showcase authentication for a Single Page Application
-                                via the OpenID Connect Authorization Code flow,
-                                which is integrated using the&nbsp;
-                                <a href="https://github.com/asgardeo/asgardeo-auth-react-sdk" target="_blank" rel="noreferrer noopener">
-                                    Asgardeo Auth React SDK
-                                </a>.
+                            <h4 className={"spa-app-description"}>
+                                Please wait while we take you to the login page.
+                            </h4>
+                            <h4 className={"spa-app-description"}>
+                                If you have been watiting too long click on the "Login" button below.
                             </h4>
                             <button
                                 className="btn primary"
-                                onClick={ () => {
+                                onClick={() => {
                                     handleLogin();
-                                } }
+                                }}
                             >
                                 Login
                             </button>
