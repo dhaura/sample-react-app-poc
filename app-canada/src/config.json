@@ -4,5 +4,6 @@
     "signInRedirectURL": "http://localhost:3001",
     "signOutRedirectURL": "http://localhost:3001",
     "scope": ["openid", "profile", "roles", "groups", "email"],
-    "orgId": "<CANADA-CHILD-ORG-ID>"
+    "orgId": "<CANADA-CHILD-ORG-ID>",
+    "parentOrgId": "<PARENT-ORG-ID>"
 }
