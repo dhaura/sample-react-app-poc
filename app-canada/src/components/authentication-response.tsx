@@ -148,20 +148,28 @@ export const AuthenticationResponse: FunctionComponent<AuthenticationResponsePro
         handleOrgSwitchRequest();
     }
 
+    const customJsonViewerTheme = {
+        base00: '#272822', // Background
+        base01: '#3e3d32', // Slightly lighter shade for collapsible elements
+        base02: '#4d4d4d', // Even lighter shade, if needed
+        base03: '#ffffff', // Key text color
+        base04: '#ffffff', // General text color for plain text
+        base05: '#ffffff', // Default color for JSON punctuation (braces, brackets)
+        base06: '#d0d0d0', // Slightly muted white for subtle details
+        base07: '#ffffff', // Primary color for string values
+        base08: '#bf71df', // Color for booleans and nulls
+        base09: '#bf71df', // Numbers color
+        base0A: '#bf71df', // Color for strings
+        base0B: '#bf71df', // Arrays and additional data types
+        base0C: '#6393c6', // Special values, if needed
+        base0D: '#ffffff', // Default key color
+        base0E: '#bf71df', // Functions or similar callable types
+        base0F: '#558eb1', // Error messages or unique values, like hex or special types
+    };
+
     return (
         <>
-            <h2>Authentication Response</h2>
-            <h4 className="sub-title">
-                Derived by the&nbsp;
-                <code className="inline-code-block">
-                    <a href="https://www.npmjs.com/package/@asgardeo/auth-react/v/latest"
-                        target="_blank"
-                        rel="noreferrer"
-                    >
-                        @asgardeo/auth-react
-                    </a>
-                </code>&nbsp;SDK
-            </h4>
+            <h2>Authenticaticated User Info</h2>
             <div className="json">
                 <JsonViewer
                     className="asg-json-viewer"
@@ -170,7 +178,7 @@ export const AuthenticationResponse: FunctionComponent<AuthenticationResponsePro
                     displayObjectSize={false}
                     displayDataTypes={false}
                     rootName={false}
-                    theme="dark"
+                    theme={customJsonViewerTheme}
                 />
             </div>
             <h2 className="mb-0 mt-4">ID token</h2>
@@ -205,7 +213,7 @@ export const AuthenticationResponse: FunctionComponent<AuthenticationResponsePro
                             displayObjectSize={false}
                             displayDataTypes={false}
                             rootName={false}
-                            theme="dark"
+                            theme={customJsonViewerTheme}
                         />
                     </div>
 
@@ -220,7 +228,7 @@ export const AuthenticationResponse: FunctionComponent<AuthenticationResponsePro
                             displayObjectSize={false}
                             displayDataTypes={false}
                             rootName={false}
-                            theme="dark"
+                            theme={customJsonViewerTheme}
                         />
                     </div>
                     <div className="json">

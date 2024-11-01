@@ -19,7 +19,8 @@
 import { BasicUserInfo, Hooks, useAuthContext } from "@asgardeo/auth-react";
 import React, { FunctionComponent, ReactElement, useCallback, useEffect, useState } from "react";
 import { default as authConfig } from "../config.json";
-import REACT_LOGO from "../images/react-logo.png";
+import WA_US_LOGO from "../images/wa-us-logo.png";
+import FIN_APP from "../images/financial-app.jpg";
 import { DefaultLayout } from "../layouts/default";
 import { AuthenticationResponse } from "../components";
 import { useLocation } from "react-router-dom";
@@ -96,7 +97,10 @@ export const HomePage: FunctionComponent = (): ReactElement => {
 
     const handleLogin = useCallback(() => {
         setHasLogoutFailureError(false);
-        signIn()
+        signIn({
+            fidp: "OrganizationSSO",
+            orgId: authConfig?.parentOrgId
+        })
             .catch(() => setHasAuthenticationErrors(true));
     }, [signIn]);
 
@@ -145,6 +149,14 @@ export const HomePage: FunctionComponent = (): ReactElement => {
         );
     }
 
+    // State to manage the collapse status.
+    const [isCollapsed, setIsCollapsed] = useState(true);
+
+    // Function to toggle the collapse state.
+    const toggleCollapse = () => {
+        setIsCollapsed(prevState => !prevState);
+    };
+
     return (
         <DefaultLayout
             isLoading={state.isLoading}
@@ -154,9 +166,44 @@ export const HomePage: FunctionComponent = (): ReactElement => {
                 state.isAuthenticated
                     ? (
                         <div className="content">
-                            <AuthenticationResponse
-                                derivedResponse={derivedAuthenticationState}
-                            />
+                            <div className="home-image">
+                                <img alt="wa-us-logo" src={WA_US_LOGO} className="react-logo-image logo" />
+                            </div>
+                            <h2 className={"spa-app-description"}>
+                                Let your money flourish in the right environment.
+                            </h2>
+                            <h4 className={"spa-app-description"}>
+                                Building wealth doesn’t have to be complicated. With the right tools and guidance, anyone can make the most of their financial potential. Our comprehensive solutions are designed to help
+                                you grow and safeguard your wealth effortlessly, putting you on the path toward lasting financial security.
+                            </h4>
+                            <button className="btn secondary">
+                                Start Investing
+                            </button>
+                            <div className="side-by-side-container">
+                                <h4 className="spa-app-description-justified">
+                                    Whether you’re putting it aside, growing it through investments, or simply maximizing its potential, we offer an incredibly straightforward solution for wealth accumulation.
+                                    Enjoy a competitive 7.50% APY on your savings, ensuring your money works as hard as you do. Take advantage of current rates with a structured approach to US Treasuries, allowing you to
+                                    protect and expand your wealth with stability and confidence. Our award-winning automated investment services make it easy to build a diversified portfolio designed to meet your
+                                    financial goals, no matter the market’s ups and downs. Plus, with personalized guidance and a seamless, user-friendly experience, we help you navigate the path to long-term financial
+                                    success and peace of mind.
+                                </h4>
+                                <img alt="fin-app" src={FIN_APP} className="side-image" />
+                            </div>
+                           
+                            <div className="collapsible-box">
+                                <div className="toggle-button" onClick={toggleCollapse}>
+                                    {isCollapsed ? '▼' : '▲'}
+                                    <span className="toggle-text">{isCollapsed ? 'Show Profile' : 'Hide Profile'}</span>
+                                </div>
+
+                                {!isCollapsed && (
+                                    <div className="content">
+                                        <AuthenticationResponse
+                                            derivedResponse={derivedAuthenticationState}
+                                        />
+                                    </div>
+                                )}
+                            </div>
                             <button
                                 className="btn primary mt-4"
                                 onClick={() => {
@@ -172,7 +219,7 @@ export const HomePage: FunctionComponent = (): ReactElement => {
                             handleLogin();
                         }}>
                             <div className="home-image">
-                                <img alt="react-logo" src={REACT_LOGO} className="react-logo-image logo" />
+                                <img alt="react-logo" src={WA_US_LOGO} className="react-logo-image logo" />
                             </div>
                             <h4 className={"spa-app-description"}>
                                 Please wait while we take you to the login page.

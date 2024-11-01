@@ -17,7 +17,7 @@
  */
 
 import React, { FunctionComponent, PropsWithChildren, ReactElement } from "react";
-import FOOTER_LOGOS from "../images/footer.png";
+import WA_US_FOOTER_LOGO from "../images/wa-us-footer-logo.png";
 
 /**
  * Decoded ID Token Response component Prop types interface.
@@ -56,7 +56,7 @@ export const DefaultLayout: FunctionComponent<PropsWithChildren<DefaultLayoutPro
             <div className="container">
                 <div className="header-title">
                     <h1>
-                        React SPA Authentication Sample
+                        Wealth Advisor USA
                     </h1>
                 </div>
                 {
@@ -67,7 +67,7 @@ export const DefaultLayout: FunctionComponent<PropsWithChildren<DefaultLayoutPro
                             : children
                 }
             </div>
-            <img src={FOOTER_LOGOS} className="footer-image" />
+            <img src={WA_US_FOOTER_LOGO} className="footer-image" />
         </>
     );
 };
