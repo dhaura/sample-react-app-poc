@@ -36,13 +36,23 @@ interface DerivedState {
 }
 
 /**
+ * Home Page component prop types interface.
+ */
+interface HomePagePropsInterface {
+    /**
+     * Whether direct CA region access is required.
+     */
+    isDirectCAAccess?: boolean;
+}
+
+/**
  * Home page for the Sample.
  *
- * @param props - Props injected to the component.
+ * @param {HomePagePropsInterface} props - Props injected to the component.
  *
  * @return {React.ReactElement}
  */
-export const HomePage: FunctionComponent = (): ReactElement => {
+export const HomePage: FunctionComponent<HomePagePropsInterface> = (props: HomePagePropsInterface): ReactElement => {
 
     const {
         state,
@@ -54,6 +64,8 @@ export const HomePage: FunctionComponent = (): ReactElement => {
         on,
         getAccessToken
     } = useAuthContext();
+
+    const { isDirectCAAccess } = props;
 
     const [derivedAuthenticationState, setDerivedAuthenticationState] = useState<DerivedState>(null);
     const [hasAuthenticationErrors, setHasAuthenticationErrors] = useState<boolean>(false);
@@ -97,9 +109,17 @@ export const HomePage: FunctionComponent = (): ReactElement => {
 
     const handleLogin = useCallback(() => {
         setHasLogoutFailureError(false);
+
+        console.log("Redirecting to the login page...: " + isDirectCAAccess);
+
+        let redirectOrgId = authConfig?.parentOrgId;
+        if (isDirectCAAccess) {
+            redirectOrgId = authConfig?.orgId;
+        }
+
         signIn({
             fidp: "OrganizationSSO",
-            orgId: authConfig?.parentOrgId
+            orgId: redirectOrgId
         })
             .catch(() => setHasAuthenticationErrors(true));
     }, [signIn]);
@@ -215,9 +235,7 @@ export const HomePage: FunctionComponent = (): ReactElement => {
                         </div>
                     )
                     : (
-                        <div className="content" onLoad={() => {
-                            handleLogin();
-                        }}>
+                        <div className="content">
                             <div className="home-image">
                                 <img alt="wa-ca-logo" src={WA_CA_LOGO} className="react-logo-image logo" />
                             </div>

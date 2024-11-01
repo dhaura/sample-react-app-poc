@@ -36,13 +36,23 @@ interface DerivedState {
 }
 
 /**
+ * Home Page component prop types interface.
+ */
+interface HomePagePropsInterface {
+    /**
+     * Whether direct US region access is required.
+     */
+    isDirectUSAccess?: boolean;
+}
+
+/**
  * Home page for the Sample.
  *
- * @param props - Props injected to the component.
+ * @param {HomePagePropsInterface} props - Props injected to the component.
  *
  * @return {React.ReactElement}
  */
-export const HomePage: FunctionComponent = (): ReactElement => {
+export const HomePage: FunctionComponent<HomePagePropsInterface> = (props: HomePagePropsInterface): ReactElement => {
 
     const {
         state,
@@ -54,6 +64,8 @@ export const HomePage: FunctionComponent = (): ReactElement => {
         on,
         getAccessToken
     } = useAuthContext();
+
+    const { isDirectUSAccess } = props;
 
     const [derivedAuthenticationState, setDerivedAuthenticationState] = useState<DerivedState>(null);
     const [hasAuthenticationErrors, setHasAuthenticationErrors] = useState<boolean>(false);
@@ -97,9 +109,15 @@ export const HomePage: FunctionComponent = (): ReactElement => {
 
     const handleLogin = useCallback(() => {
         setHasLogoutFailureError(false);
+
+        let redirectOrgId = authConfig?.parentOrgId;
+        if (isDirectUSAccess) {
+            redirectOrgId = authConfig?.orgId;
+        }
+
         signIn({
             fidp: "OrganizationSSO",
-            orgId: authConfig?.parentOrgId
+            orgId: redirectOrgId
         })
             .catch(() => setHasAuthenticationErrors(true));
     }, [signIn]);

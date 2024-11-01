@@ -32,7 +32,8 @@ const AppContent: FunctionComponent = (): ReactElement => {
         <ErrorBoundary error={error}>
             <Router>
             <Routes>
-                <Route path="/" element={ <HomePage /> } />
+                <Route path="/" element={<HomePage isDirectCAAccess={false} />} />
+                <Route path="/ca" element={<HomePage isDirectCAAccess={true} />} />
                 <Route element={ <NotFoundPage /> } />
             </Routes>
         </Router>
