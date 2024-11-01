@@ -17,8 +17,7 @@
  */
 
 import { BasicUserInfo } from "@asgardeo/auth-react";
-import React, { FunctionComponent, ReactElement, useState } from "react";
-import { default as authConfig } from "../config.json";
+import React, { FunctionComponent, ReactElement } from "react";
 import { JsonViewer } from '@textea/json-viewer'
 
 /**
@@ -65,89 +64,6 @@ export const AuthenticationResponse: FunctionComponent<AuthenticationResponsePro
         derivedResponse
     } = props;
 
-    const [userInfo, setUserInfo] = useState<any>(derivedResponse?.authenticateResponse);
-    const [idToken, setIdToken] = useState<string[]>(derivedResponse?.idToken);
-    const [decodedIdTokenHeader, setDecodedIdTokenHeader] = useState<any>(derivedResponse?.decodedIdTokenHeader);
-    const [decodedIDTokenPayload, setDecodedIdTokenPayload] = useState<any>(derivedResponse?.decodedIDTokenPayload);
-
-    const handleOrgSwitchRequest = async () => {
-        try {
-            const formBody = new URLSearchParams({
-                token: derivedResponse?.accessToken || '',
-                scope: authConfig?.scope.join(' '),
-                client_id: authConfig?.clientID,
-                switching_organization: authConfig?.orgId,
-                grant_type: 'organization_switch'
-            });
-            const res = await fetch(authConfig?.baseUrl + '/oauth2/token', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: formBody.toString()
-            });
-
-            const data = await res.json();
-            if (data.id_token) {
-                setIdToken(data.id_token.split('.'));
-                setDecodedIdTokenHeader(JSON.parse(atob(data.id_token.split('.')[0])));
-                setDecodedIdTokenPayload(decodeJwt(data.id_token));
-            } else {
-                console.log('ID Token not found in response.');
-            }
-
-            if (data.access_token) {
-                fetchUserInfo(data.access_token);
-            } else {
-                console.error('Access Token not found in response.');
-            }
-        } catch (error) {
-            console.error('Error while switching:', error);
-        }
-    };
-
-    const decodeJwt = (token: string) => {
-        try {
-            const base64Url = token.split('.')[1];
-            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-            const jsonPayload = decodeURIComponent(
-                atob(base64)
-                    .split('')
-                    .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
-                    .join('')
-            );
-            return JSON.parse(jsonPayload);
-        } catch (error) {
-            console.error('Error decoding JWT:', error);
-            return null;
-        }
-    };
-
-    const fetchUserInfo = async (accessToken: string) => {
-        try {
-            const response = await fetch(authConfig?.baseUrl + '/oauth2/userinfo', {
-                method: 'GET',
-                headers: {
-                    'Authorization': 'Bearer ' + accessToken
-                }
-            });
-
-            if (!response.ok) {
-                console.error(`Error while retrieving user info: ${response.status}`);
-            }
-
-            const data = await response.json();
-            setUserInfo(data);
-        } catch (error) {
-            console.error('Failed to fetch user info:', error);
-        }
-    };
-
-
-    if (decodedIDTokenPayload?.org_id !== authConfig?.orgId) {
-        handleOrgSwitchRequest();
-    }
-
     const customJsonViewerTheme = {
         base00: '#272822', // Background
         base01: '#3e3d32', // Slightly lighter shade for collapsible elements
@@ -173,7 +89,7 @@ export const AuthenticationResponse: FunctionComponent<AuthenticationResponsePro
             <div className="json">
                 <JsonViewer
                     className="asg-json-viewer"
-                    value={userInfo}
+                    value={derivedResponse?.authenticateResponse}
                     enableClipboard={false}
                     displayObjectSize={false}
                     displayDataTypes={false}
@@ -183,17 +99,17 @@ export const AuthenticationResponse: FunctionComponent<AuthenticationResponsePro
             </div>
             <h2 className="mb-0 mt-4">ID token</h2>
             <div className="row">
-                {idToken && (
+                {derivedResponse?.idToken && (
                     <div className="column">
                         <h5>
                             <b>Encoded</b>
                         </h5>
                         <div className="code">
-                            {idToken?.length === 3 ? (
+                            {derivedResponse?.idToken?.length === 3 ? (
                                 <code>
-                                    <span className="id-token-0">{idToken[0]}</span>.
-                                    <span className="id-token-1">{idToken[1]}</span>.
-                                    <span className="id-token-2">{idToken[2]}</span>
+                                    <span className="id-token-0">{derivedResponse?.idToken[0]}</span>.
+                                    <span className="id-token-1">{derivedResponse?.idToken[1]}</span>.
+                                    <span className="id-token-2">{derivedResponse?.idToken[2]}</span>
                                 </code>
                             ) : (
                                 <div>ID token not found</div>
@@ -208,7 +124,7 @@ export const AuthenticationResponse: FunctionComponent<AuthenticationResponsePro
                         </h5>
                         <JsonViewer
                             className="asg-json-viewer"
-                            value={decodedIdTokenHeader}
+                            value={derivedResponse?.decodedIdTokenHeader}
                             enableClipboard={false}
                             displayObjectSize={false}
                             displayDataTypes={false}
@@ -223,7 +139,7 @@ export const AuthenticationResponse: FunctionComponent<AuthenticationResponsePro
                         </h5>
                         <JsonViewer
                             className="asg-json-viewer"
-                            value={decodedIDTokenPayload}
+                            value={derivedResponse?.decodedIDTokenPayload}
                             enableClipboard={false}
                             displayObjectSize={false}
                             displayDataTypes={false}

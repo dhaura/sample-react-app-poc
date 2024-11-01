@@ -182,7 +182,8 @@ code {
 }
 
 .content {
-    padding: 50px;
+    padding: 40px;
+    background-color: #ffffff;
 }
 
 .content .spa-app-description {
@@ -284,11 +285,6 @@ code {
     margin-left: 10px; /* Space between arrow and text */
 }
 
-.content {
-    padding: 15px; /* Padding inside the box */
-    background-color: #ffffff; /* Background color for the content */
-}
-
 .side-by-side-container {
     display: flex;
     align-items: center; /* Centers items vertically */
@@ -300,4 +296,47 @@ code {
     width: 350px; /* Adjust the width as needed */
     height: auto;
     border-radius: 10px; /* Optional: round the corners */
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.app-header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 1rem;
+    background-color: #f0f0f0;
+    border-bottom: 1px solid #ccc;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.username-display {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #8354f6;
+    margin-right: auto; /* Pushes the username to the left */
+}
+
+.profile-icon {
+    cursor: pointer;
+    color: #8354f6;
+}
+
+.logout-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: bold;
+    color: #8354f6;
+    border: none;
+    background: none;
+    cursor: pointer;
 }
