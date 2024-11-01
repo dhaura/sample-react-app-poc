@@ -301,3 +301,47 @@ code {
     height: auto;
     border-radius: 10px; /* Optional: round the corners */
 }
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.app-header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 1rem;
+    background-color: #f0f0f0;
+    border-bottom: 1px solid #ccc;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.username-display {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #b45ad8;
+    margin-right: auto; /* Pushes the username to the left */
+}
+
+.profile-icon {
+    cursor: pointer;
+    color: #b45ad8;
+}
+
+.logout-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: bold;
+    color: #b45ad8;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
