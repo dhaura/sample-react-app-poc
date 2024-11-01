@@ -182,7 +182,8 @@ code {
 }
 
 .content {
-    padding: 50px;
+    padding: 40px;
+    background-color: #ffffff;
 }
 
 .content .spa-app-description {
@@ -282,11 +283,6 @@ code {
 
 .toggle-text {
     margin-left: 10px; /* Space between arrow and text */
-}
-
-.content {
-    padding: 15px; /* Padding inside the box */
-    background-color: #ffffff; /* Background color for the content */
 }
 
 .side-by-side-container {
