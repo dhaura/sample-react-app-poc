@@ -16,7 +16,6 @@
  * under the License.
  */
 
-import { useAuthContext } from "@asgardeo/auth-react";
 import React, { FunctionComponent, ReactElement, useState } from "react";
 import { default as authConfig } from "../config.json";
 import { FiUser, FiHome } from "react-icons/fi"; // Profile icon
@@ -34,6 +33,7 @@ interface AuthorizedHomePagePropsInterface {
      * Derived Authenticated Response.
      */
     derivedResponse?: any;
+    signOut?: any;
 }
 
 /**
@@ -48,11 +48,8 @@ export const AuthorizedHomePage: FunctionComponent<AuthorizedHomePagePropsInterf
 ): ReactElement => {
 
     const {
+        derivedResponse,
         signOut
-    } = useAuthContext();
-
-    const {
-        derivedResponse
     } = props;
 
     const [userInfo, setUserInfo] = useState<any>(derivedResponse?.authenticateResponse);

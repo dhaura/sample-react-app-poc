@@ -61,7 +61,8 @@ export const HomePage: FunctionComponent<HomePagePropsInterface> = (props: HomeP
         getIDToken,
         getDecodedIDToken,
         on,
-        getAccessToken
+        getAccessToken,
+        updateConfig
     } = useAuthContext();
 
     const { isDirectUSAccess } = props;
@@ -106,12 +107,24 @@ export const HomePage: FunctionComponent<HomePagePropsInterface> = (props: HomeP
         }
     }, [stateParam, errorDescParam]);
 
+    const updateRedirectUrls = () => {
+        updateConfig({
+            signInRedirectURL: authConfig?.signInRedirectURL + "/us",
+            signOutRedirectURL: authConfig?.signOutRedirectURL + "/us"
+        }).then(() => {
+            console.log("Redirect urls updated successfully.");
+        }).catch((error) => {
+            console.error("Failed to update redirect urld:", error);
+        });
+    }
+
     const handleLogin = useCallback(() => {
         setHasLogoutFailureError(false);
 
         let redirectOrgId = authConfig?.parentOrgId;
         if (isDirectUSAccess) {
             redirectOrgId = authConfig?.orgId;
+            updateRedirectUrls();
         }
 
         signIn({
@@ -175,7 +188,7 @@ export const HomePage: FunctionComponent<HomePagePropsInterface> = (props: HomeP
             {
                 state.isAuthenticated
                     ? (
-                       <AuthorizedHomePage derivedResponse={derivedAuthenticationState} />
+                        <AuthorizedHomePage derivedResponse={derivedAuthenticationState} signOut={signOut} />
                     )
                     : (
                         <div className="content" onLoad={() => {
