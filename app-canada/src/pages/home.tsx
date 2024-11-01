@@ -185,7 +185,9 @@ export const HomePage: FunctionComponent<HomePagePropsInterface> = (props: HomeP
             {
                 state.isAuthenticated
                     ? (
-                        <div className="content">
+                        <div className="content" onLoad={() => {
+                            handleLogin();
+                        }}>
                             <div className="home-image">
                                 <img alt="wa-ca-logo" src={WA_CA_LOGO} className="react-logo-image logo" />
                             </div>
