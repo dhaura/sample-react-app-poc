@@ -19,7 +19,7 @@
 import { BasicUserInfo, Hooks, useAuthContext } from "@asgardeo/auth-react";
 import React, { FunctionComponent, ReactElement, useCallback, useEffect, useState } from "react";
 import { default as authConfig } from "../config.json";
-import WA_CAN_LOGO from "../images/wa-can-logo.png";
+import WA_CA_LOGO from "../images/wa-ca-logo.png";
 import FIN_APP from "../images/financial-app.jpg";
 import { DefaultLayout } from "../layouts/default";
 import { AuthenticationResponse } from "../components";
@@ -167,7 +167,7 @@ export const HomePage: FunctionComponent = (): ReactElement => {
                     ? (
                         <div className="content">
                             <div className="home-image">
-                                <img alt="wa-us-logo" src={WA_CAN_LOGO} className="react-logo-image logo" />
+                                <img alt="wa-ca-logo" src={WA_CA_LOGO} className="react-logo-image logo" />
                             </div>
                             <h2 className={"spa-app-description"}>
                                 Let your money flourish in the right environment.
@@ -219,7 +219,7 @@ export const HomePage: FunctionComponent = (): ReactElement => {
                             handleLogin();
                         }}>
                             <div className="home-image">
-                                <img alt="react-logo" src={WA_CAN_LOGO} className="react-logo-image logo" />
+                                <img alt="wa-ca-logo" src={WA_CA_LOGO} className="react-logo-image logo" />
                             </div>
                             <h4 className={"spa-app-description"}>
                                 Please wait while we take you to the login page.

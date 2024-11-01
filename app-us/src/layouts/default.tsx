@@ -56,8 +56,11 @@ export const DefaultLayout: FunctionComponent<PropsWithChildren<DefaultLayoutPro
             <div className="container">
                 <div className="header-title">
                     <h1>
-                        Wealth Advisor USA
+                        Welcome to UMP
                     </h1>
+                    <h3>
+                        Wealth Advisor US
+                    </h3>
                 </div>
                 {
                     isLoading

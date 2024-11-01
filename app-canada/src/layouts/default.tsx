@@ -17,7 +17,7 @@
  */
 
 import React, { FunctionComponent, PropsWithChildren, ReactElement } from "react";
-import WA_CAN_FOOTER_LOGO from "../images/wa-can-footer-logo.png";
+import WA_CA_FOOTER_LOGO from "../images/wa-ca-footer-logo.png";
 
 /**
  * Decoded ID Token Response component Prop types interface.
@@ -56,8 +56,11 @@ export const DefaultLayout: FunctionComponent<PropsWithChildren<DefaultLayoutPro
             <div className="container">
                 <div className="header-title">
                     <h1>
-                        Wealth Advisor Canada
+                        Welcome to UMP
                     </h1>
+                    <h3>
+                        Wealth Advisor CA
+                    </h3>
                 </div>
                 {
                     isLoading
@@ -67,7 +70,7 @@ export const DefaultLayout: FunctionComponent<PropsWithChildren<DefaultLayoutPro
                             : children
                 }
             </div>
-            <img src={WA_CAN_FOOTER_LOGO} className="footer-image" />
+            <img src={WA_CA_FOOTER_LOGO} className="footer-image" />
         </>
     );
 };

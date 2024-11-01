@@ -219,7 +219,7 @@ export const HomePage: FunctionComponent = (): ReactElement => {
                             handleLogin();
                         }}>
                             <div className="home-image">
-                                <img alt="react-logo" src={WA_US_LOGO} className="react-logo-image logo" />
+                                <img alt="wa-us-logo" src={WA_US_LOGO} className="react-logo-image logo" />
                             </div>
                             <h4 className={"spa-app-description"}>
                                 Please wait while we take you to the login page.
