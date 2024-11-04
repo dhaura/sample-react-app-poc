@@ -154,21 +154,20 @@ export const AuthorizedHomePage: FunctionComponent<AuthorizedHomePagePropsInterf
         };
     }
 
-    const getUsername = () => {
+    const getUsername = (user: any) => {
 
-        if (userInfo?.family_name && userInfo?.given_name) {
-            return `${userInfo?.given_name} ${userInfo?.family_name}`;
+        if (user?.family_name && user?.given_name) {
+            return `${user?.given_name} ${user?.family_name}`;
         }
-        return userInfo?.username;
+        return user?.username;
     }
 
     return (
         <div className="app-container">
-            {/* Header with profile icon and logout button */}
             <header className="app-header">
                 <div className="header-content">
                     <div className="username-display">
-                        {getUsername()}
+                        {getUsername(userInfo)}
                     </div>
                     <div className="profile-icon" onClick={handleProfileClick}>
                         {isProfileView ? <FiHome size={24} /> : <FiUser size={24} />}
@@ -181,12 +180,10 @@ export const AuthorizedHomePage: FunctionComponent<AuthorizedHomePagePropsInterf
             <div className="content">
                 {isProfileView ? (
                     <div>
-                        {/* Display profile view with AuthenticationResponse */}
                         <AuthenticationResponse derivedResponse={getDerivedAuthenticationState()} />
                     </div>
                 ) : (
                     <div>
-                        {/* Main Content */}
                         <div className="home-image">
                             <img alt="wa-us-logo" src={WA_US_LOGO} className="react-logo-image logo" />
                         </div>
