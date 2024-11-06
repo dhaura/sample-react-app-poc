@@ -22,7 +22,7 @@ import { default as authConfig } from "../config.json";
 import WA_CA_LOGO from "../images/wa-ca-logo.png";
 import { DefaultLayout } from "../layouts/default";
 import { AuthorizedHomePage } from "../components/authorized-home-page";
-import { useLocation } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import { LogoutRequestDenied } from "../components/LogoutRequestDenied";
 import { USER_DENIED_LOGOUT } from "../constants/errors";
 
@@ -74,6 +74,10 @@ export const HomePage: FunctionComponent<HomePagePropsInterface> = (props: HomeP
     const search = useLocation().search;
     const stateParam = new URLSearchParams(search).get('state');
     const errorDescParam = new URLSearchParams(search).get('error_description');
+
+    const [searchParams] = useSearchParams();
+    const code = searchParams.get("code");
+    const sessionState = searchParams.get("session_state");  
 
     useEffect(() => {
 
@@ -130,10 +134,12 @@ export const HomePage: FunctionComponent<HomePagePropsInterface> = (props: HomeP
             updateRedirectUrls();
         }
 
-        signIn({
+        const singInConfig = {
             fidp: "OrganizationSSO",
             orgId: redirectOrgId
-        })
+        };
+        
+        signIn(singInConfig, code, sessionState, stateParam, undefined, undefined)
             .catch(() => setHasAuthenticationErrors(true));
     }, [signIn]);
 
