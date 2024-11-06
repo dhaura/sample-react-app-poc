@@ -77,7 +77,7 @@ export const HomePage: FunctionComponent<HomePagePropsInterface> = (props: HomeP
 
     const [searchParams] = useSearchParams();
     const code = searchParams.get("code");
-    const sessionState = searchParams.get("session_state");  
+    const sessionState = searchParams.get("session_state");
 
     useEffect(() => {
 
@@ -138,7 +138,7 @@ export const HomePage: FunctionComponent<HomePagePropsInterface> = (props: HomeP
             fidp: "OrganizationSSO",
             orgId: redirectOrgId
         };
-        
+
         signIn(singInConfig, code, sessionState, stateParam, undefined, undefined)
             .catch(() => setHasAuthenticationErrors(true));
     }, [signIn]);
@@ -196,7 +196,7 @@ export const HomePage: FunctionComponent<HomePagePropsInterface> = (props: HomeP
             {
                 state.isAuthenticated
                     ? (
-                        <AuthorizedHomePage derivedResponse={derivedAuthenticationState} signOut={signOut}/>
+                        <AuthorizedHomePage derivedResponse={derivedAuthenticationState} signOut={signOut} />
                     )
                     : (
                         <div className="content" onLoad={() => {
@@ -205,20 +205,13 @@ export const HomePage: FunctionComponent<HomePagePropsInterface> = (props: HomeP
                             <div className="home-image">
                                 <img alt="wa-ca-logo" src={WA_CA_LOGO} className="react-logo-image logo" />
                             </div>
+                            <div className="loading-spinner"></div>
                             <h4 className={"spa-app-description"}>
                                 Please wait while we take you to the login page.
                             </h4>
                             <h4 className={"spa-app-description"}>
-                                If you have been watiting too long click on the "Login" button below.
+                                If you have been watiting too long, <a href="#" className="login-link" onClick={(e) => { e.preventDefault(); handleLogin(); }}> click here</a> to log in.
                             </h4>
-                            <button
-                                className="btn primary"
-                                onClick={() => {
-                                    handleLogin();
-                                }}
-                            >
-                                Login
-                            </button>
                         </div>
                     )
             }

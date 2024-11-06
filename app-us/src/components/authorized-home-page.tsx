@@ -16,7 +16,7 @@
  * under the License.
  */
 
-import React, { FunctionComponent, ReactElement, useState } from "react";
+import React, { FunctionComponent, ReactElement, useEffect, useState } from "react";
 import { default as authConfig } from "../config.json";
 import { FiUser, FiHome } from "react-icons/fi"; // Profile icon
 import { IoExitOutline } from "react-icons/io5";
@@ -57,10 +57,10 @@ export const AuthorizedHomePage: FunctionComponent<AuthorizedHomePagePropsInterf
     const [decodedIdTokenHeader, setDecodedIdTokenHeader] = useState<any>(derivedResponse?.decodedIdTokenHeader);
     const [decodedIDTokenPayload, setDecodedIdTokenPayload] = useState<any>(derivedResponse?.decodedIDTokenPayload);
 
-    const handleOrgSwitchRequest = async () => {
+    const handleOrgSwitchRequest = async (accessToken: string) => {
         try {
             const formBody = new URLSearchParams({
-                token: derivedResponse?.accessToken || '',
+                token: accessToken,
                 scope: authConfig?.scope.join(' '),
                 client_id: authConfig?.clientID,
                 switching_organization: authConfig?.orgId,
@@ -130,10 +130,17 @@ export const AuthorizedHomePage: FunctionComponent<AuthorizedHomePagePropsInterf
         }
     };
 
+    useEffect(() => {
 
-    if (decodedIDTokenPayload?.org_id !== authConfig?.orgId) {
-        handleOrgSwitchRequest();
-    }
+        console.log("decodedIDTokenPayload?.org_id", decodedIDTokenPayload?.org_id);
+        
+        if (decodedIDTokenPayload?.org_id !== authConfig?.orgId) {
+            const accessToken = derivedResponse?.accessToken; 
+            if (accessToken) {
+                handleOrgSwitchRequest(accessToken);
+            }
+        }
+    }, [decodedIDTokenPayload?.org_id, derivedResponse?.accessToken]);
 
     const handleLogout = () => {
         signOut();
