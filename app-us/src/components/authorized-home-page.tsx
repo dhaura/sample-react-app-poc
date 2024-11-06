@@ -56,6 +56,7 @@ export const AuthorizedHomePage: FunctionComponent<AuthorizedHomePagePropsInterf
     const [idToken, setIdToken] = useState<string[]>(derivedResponse?.idToken);
     const [decodedIdTokenHeader, setDecodedIdTokenHeader] = useState<any>(derivedResponse?.decodedIdTokenHeader);
     const [decodedIDTokenPayload, setDecodedIdTokenPayload] = useState<any>(derivedResponse?.decodedIDTokenPayload);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     const [isUserAuthorized, setIsUserAuthorized] = useState<boolean>(false);
 
     const handleOrgSwitchRequest = async (accessToken: string) => {
@@ -75,7 +76,8 @@ export const AuthorizedHomePage: FunctionComponent<AuthorizedHomePagePropsInterf
                 body: formBody.toString()
             });
 
-            if (res.status === 401) {
+            setIsLoading(false);
+            if (res.status !== 200) {
                 console.log(`Error while switching: ${res.status}`);
                 setIsUserAuthorized(false);
                 return;
@@ -179,7 +181,7 @@ export const AuthorizedHomePage: FunctionComponent<AuthorizedHomePagePropsInterf
 
     return (
         <div className="app-container">
-            {isUserAuthorized ? (
+            {!isLoading && isUserAuthorized ? (
                 <div>
                     <header className="app-header">
                         <div className="header-content">
@@ -229,13 +231,20 @@ export const AuthorizedHomePage: FunctionComponent<AuthorizedHomePagePropsInterf
                 </div>
             ) : (
                 <div className="content">
-                    <h2 className={"spa-app-description warning-message"}>
-                        You don't have access to this application.
-                    </h2>
-                    <h4 className={"spa-app-description"}>
-                        <a href="#" className="login-link" onClick={(e) => { e.preventDefault(); signOut(); }}>Click here</a> to go back to the login page.
-                    </h4>
-                </div>)}
+                    {isLoading ? (
+                        <div className="loading-spinner"></div>
+                    ) : (
+                        <div>
+                            <h2 className={"spa-app-description warning-message"}>
+                                You don't have access to this application.
+                            </h2>
+                            <h4 className={"spa-app-description"}>
+                                <a href="#" className="login-link" onClick={(e) => { e.preventDefault(); signOut(); }}>Click here</a> to go back to the login page.
+                            </h4>
+                        </div>
+                    )}
+                </div>
+            )}
         </div>
     );
 };
