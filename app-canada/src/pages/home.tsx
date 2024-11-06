@@ -194,7 +194,7 @@ export const HomePage: FunctionComponent<HomePagePropsInterface> = (props: HomeP
             hasErrors={hasAuthenticationErrors}
         >
             {
-                state.isAuthenticated
+                state.isAuthenticated && derivedAuthenticationState
                     ? (
                         <AuthorizedHomePage derivedResponse={derivedAuthenticationState} signOut={signOut} />
                     )
@@ -210,7 +210,7 @@ export const HomePage: FunctionComponent<HomePagePropsInterface> = (props: HomeP
                                 Please wait while we take you to the login page.
                             </h4>
                             <h4 className={"spa-app-description"}>
-                                If you have been watiting too long, <a href="#" className="login-link" onClick={(e) => { e.preventDefault(); handleLogin(); }}> click here</a> to log in.
+                                If you have been watiting too long, <a href="login" className="login-link" onClick={(e) => { e.preventDefault(); handleLogin(); }}> click here</a> to log in.
                             </h4>
                         </div>
                     )

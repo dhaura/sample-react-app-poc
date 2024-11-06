@@ -76,10 +76,9 @@ export const AuthorizedHomePage: FunctionComponent<AuthorizedHomePagePropsInterf
                 body: formBody.toString()
             });
 
-            setIsLoading(false);
             if (res.status !== 200) {
-                console.log(`Error while switching: ${res.status}`);
                 setIsUserAuthorized(false);
+                setIsLoading(false);
                 return;
             }
             setIsUserAuthorized(true);
@@ -148,6 +147,9 @@ export const AuthorizedHomePage: FunctionComponent<AuthorizedHomePagePropsInterf
             if (accessToken) {
                 handleOrgSwitchRequest(accessToken);
             }
+        } else {
+            setIsUserAuthorized(true);
+            setIsLoading(false);
         }
     }, [decodedIDTokenPayload?.org_id, derivedResponse?.accessToken]);
 
@@ -174,6 +176,8 @@ export const AuthorizedHomePage: FunctionComponent<AuthorizedHomePagePropsInterf
 
         if (user?.family_name && user?.given_name) {
             return `${user?.given_name} ${user?.family_name}`;
+        } else if (user?.familyName && user?.givenName) {
+            return `${user?.givenName} ${user?.familyName}`;
         }
         return user?.username;
     }
@@ -238,7 +242,7 @@ export const AuthorizedHomePage: FunctionComponent<AuthorizedHomePagePropsInterf
                                 You don't have access to this application.
                             </h2>
                             <h4 className={"spa-app-description"}>
-                                <a href="#" className="login-link" onClick={(e) => { e.preventDefault(); signOut(); }}>Click here</a> to go back to the login page.
+                                <a href="login" className="login-link" onClick={(e) => { e.preventDefault(); signOut(); }}>Click here</a> to go back to the login page.
                             </h4>
                         </div>
                     )}
