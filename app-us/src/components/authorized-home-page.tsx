@@ -141,7 +141,6 @@ export const AuthorizedHomePage: FunctionComponent<AuthorizedHomePagePropsInterf
 
     useEffect(() => {
 
-
         if (decodedIDTokenPayload?.org_id !== authConfig?.orgId) {
             const accessToken = derivedResponse?.accessToken;
             if (accessToken) {
