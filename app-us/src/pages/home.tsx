@@ -20,7 +20,7 @@ import { BasicUserInfo, Hooks, useAuthContext } from "@asgardeo/auth-react";
 import React, { FunctionComponent, ReactElement, useCallback, useEffect, useState } from "react";
 import { default as authConfig } from "../config.json";
 import { DefaultLayout } from "../layouts/default";
-import { useLocation } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import { AuthorizedHomePage } from "../components/authorized-home-page";
 import { LogoutRequestDenied } from "../components/LogoutRequestDenied";
 import { USER_DENIED_LOGOUT } from "../constants/errors";
@@ -75,6 +75,10 @@ export const HomePage: FunctionComponent<HomePagePropsInterface> = (props: HomeP
     const stateParam = new URLSearchParams(search).get('state');
     const errorDescParam = new URLSearchParams(search).get('error_description');
 
+    const [searchParams] = useSearchParams();
+    const code = searchParams.get("code");
+    const sessionState = searchParams.get("session_state");  
+
     useEffect(() => {
 
         if (!state?.isAuthenticated) {
@@ -128,10 +132,12 @@ export const HomePage: FunctionComponent<HomePagePropsInterface> = (props: HomeP
             updateRedirectUrls();
         }
 
-        signIn({
+        const singInConfig = {
             fidp: "OrganizationSSO",
             orgId: redirectOrgId
-        })
+        };
+        
+        signIn(singInConfig, code, sessionState, stateParam, undefined, undefined)  
             .catch(() => setHasAuthenticationErrors(true));
     }, [signIn]);
 
