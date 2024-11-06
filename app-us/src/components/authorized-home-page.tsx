@@ -233,7 +233,7 @@ export const AuthorizedHomePage: FunctionComponent<AuthorizedHomePagePropsInterf
                         You don't have access to this application.
                     </h2>
                     <h4 className={"spa-app-description"}>
-                        <a href="#" className="login-link" onClick={(e) => { e.preventDefault(); signOut(); }}>Click here</a> to go back to login page.
+                        <a href="#" className="login-link" onClick={(e) => { e.preventDefault(); signOut(); }}>Click here</a> to go back to the login page.
                     </h4>
                 </div>)}
         </div>
