@@ -208,7 +208,7 @@ export const HomePage: FunctionComponent<HomePagePropsInterface> = (props: HomeP
                             </div>
                             <div className="loading-spinner"></div>
                             <h4 className={"spa-app-description"}>
-                                Please wait while we take you to the login page.
+                                Please wait while we take you to the {state.isAuthenticated ? "home" : "login"} page.
                             </h4>
                             <h4 className={"spa-app-description"}>
                                 If you have been watiting too long, <a href="login" className="login-link" onClick={(e) => { e.preventDefault(); handleLogin(); }}> click here</a> to log in.
