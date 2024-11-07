@@ -64,7 +64,10 @@ export const DefaultLayout: FunctionComponent<PropsWithChildren<DefaultLayoutPro
                 </div>
                 {
                     isLoading
-                        ? <div className="content">Loading ...</div>
+                        ? 
+                        <div className="content">
+                            <div className="loading-spinner"></div>
+                        </div>
                         : hasErrors
                             ? <div className="content">An error occured while authenticating ...</div>
                             : children

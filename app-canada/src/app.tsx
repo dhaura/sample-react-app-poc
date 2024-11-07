@@ -34,7 +34,7 @@ const AppContent: FunctionComponent = (): ReactElement => {
             <Routes>
                 <Route path="/" element={<HomePage isDirectCAAccess={false} />} />
                 <Route path="/ca" element={<HomePage isDirectCAAccess={true} />} />
-                <Route element={ <NotFoundPage /> } />
+                <Route path="/*" element={ <NotFoundPage /> } />
             </Routes>
         </Router>
         </ErrorBoundary>

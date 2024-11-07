@@ -113,6 +113,7 @@ export const HomePage: FunctionComponent<HomePagePropsInterface> = (props: HomeP
 
     const updateRedirectUrls = () => {
         updateConfig({
+            clientID: authConfig?.usClientID,
             baseUrl: authConfig?.usBaseUrl,
             signInRedirectURL: authConfig?.signInRedirectURL + "/us",
             signOutRedirectURL: authConfig?.signOutRedirectURL + "/us"

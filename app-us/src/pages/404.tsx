@@ -33,10 +33,14 @@ export const NotFoundPage: FunctionComponent = (): ReactElement => {
 
     return (
         <DefaultLayout>
-            <h3>
-                404: Page not found
-            </h3>
-            <button className="btn primary" onClick={() => { navigate("/home") }}>Go back to home</button>
+            <div className="app-container content">
+                <h2 className={"spa-app-description warning-message"}>
+                    404: Page not found
+                </h2>
+                <h4 className={"spa-app-description"}>
+                    <a href="home" className="login-link" onClick={(e) => { navigate("/"); }}>Click here</a> to go back to home.
+                </h4>
+            </div>
         </DefaultLayout>
     );
 };
