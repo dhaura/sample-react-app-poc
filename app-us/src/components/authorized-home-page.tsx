@@ -53,6 +53,7 @@ export const AuthorizedHomePage: FunctionComponent<AuthorizedHomePagePropsInterf
     } = props;
 
     const [userInfo, setUserInfo] = useState<any>(derivedResponse?.authenticateResponse);
+    const [accessToken, setAccessToken] = useState<string>(derivedResponse?.accessToken);
     const [idToken, setIdToken] = useState<string[]>(derivedResponse?.idToken);
     const [decodedIdTokenHeader, setDecodedIdTokenHeader] = useState<any>(derivedResponse?.decodedIdTokenHeader);
     const [decodedIDTokenPayload, setDecodedIdTokenPayload] = useState<any>(derivedResponse?.decodedIDTokenPayload);
@@ -93,7 +94,7 @@ export const AuthorizedHomePage: FunctionComponent<AuthorizedHomePagePropsInterf
             }
 
             if (data.access_token) {
-                fetchUserInfo(data.access_token);
+                setAccessToken(data.access_token);
             } else {
                 console.error('Access Token not found in response.');
             }
@@ -151,6 +152,19 @@ export const AuthorizedHomePage: FunctionComponent<AuthorizedHomePagePropsInterf
             setIsLoading(false);
         }
     }, [decodedIDTokenPayload?.org_id, derivedResponse?.accessToken]);
+
+    useEffect(() => {
+
+        if (decodedIDTokenPayload?.org_id === authConfig?.orgId && accessToken) {
+            fetchUserInfo(accessToken);
+            return;
+        }
+
+        if (decodedIDTokenPayload?.org_id === authConfig?.orgId) {
+            setIsUserAuthorized(true);
+            setIsLoading(false);
+        }
+    }, [accessToken]);
 
     const handleLogout = () => {
         signOut();
