@@ -1,10 +1,14 @@
 {
     "clientID": "<US-APP-CLIENT-ID>",
+    "usClientID": "<DIRECT-US-APP-CLIENT-ID>",
     "baseUrl": "https://localhost:9443",
+    "usBaseUrl": "https://localhost:9443",
     "signInRedirectURL": "http://localhost:3000",
     "signOutRedirectURL": "http://localhost:3000",
     "scope": ["openid", "profile", "roles", "groups", "email"],
     "orgId": "<US-CHILD-ORG-ID>",
-    "parentOrgId": "<PARENT-ORG-ID>"
-
+    "parentOrgId": "<PARENT-ORG-ID>",
+    "endpoints": {
+        "issuer": "https://localhost:9443/oauth2/token"
+    }
 }

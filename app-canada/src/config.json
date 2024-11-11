@@ -1,9 +1,14 @@
 {
     "clientID": "<CANADA-APP-CLIENT-ID>",
+    "caClientID": "<DIRECT-CANADA-APP-CLIENT-ID>",
     "baseUrl": "https://localhost:9443",
+    "caBaseUrl": "https://localhost:9443",
     "signInRedirectURL": "http://localhost:3001",
     "signOutRedirectURL": "http://localhost:3001",
     "scope": ["openid", "profile", "roles", "groups", "email"],
     "orgId": "<CANADA-CHILD-ORG-ID>",
-    "parentOrgId": "<PARENT-ORG-ID>"
+    "parentOrgId": "<PARENT-ORG-ID>",
+    "endpoints": {
+        "issuer": "https://localhost:9443/oauth2/token"
+    }
 }
